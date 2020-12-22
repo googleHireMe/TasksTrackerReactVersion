@@ -1,6 +1,6 @@
 import { axios } from '../../axios';
 
-const LOAD_SUCCESS = '[Priorities] LOAD_SUCCESS';
+export const LOAD_SUCCESS = '[Priorities] LOAD_SUCCESS';
 
 export const loadPriorities = () =>
   dispatch => axios.get()

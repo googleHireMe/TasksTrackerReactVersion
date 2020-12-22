@@ -13,10 +13,6 @@ class TasksScreen extends Component {
     this.props.loadAllTasks();
   }
 
-  componentDidUpdate(obj){
-    debugger;
-  }
-
   render() {
     return (
       <>
@@ -25,10 +21,13 @@ class TasksScreen extends Component {
           <Row>
             <Col xs={7}>
               <div>
-                <TasksCreator createTask={(task) => this.props.onCreateTask(task)} ></TasksCreator>
+                <TasksCreator createTask={task => this.props.onCreateTask(task)} ></TasksCreator>
               </div>
               <div>
-                <TasksList tasks={this.props.tasks}></TasksList>
+                <TasksList
+                  tasks={this.props.tasks}
+                  selectTask={taskId => this.props.onSelectTask(taskId)}
+                />
               </div>
             </Col>
             <Col xs={5}>
@@ -50,9 +49,10 @@ const mapStateToProps = state => ({
   priorities: state.priorities.priorities
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({  
+  loadAllTasks: () => dispatch(TasksActions.loadAllTasks()),
   onCreateTask: task => dispatch(TasksActions.createTask(task)),
-  loadAllTasks: () => dispatch(TasksActions.loadAllTasks())
+  onSelectTask: taskId => dispatch(TasksActions.loadTask(taskId))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(TasksScreen);

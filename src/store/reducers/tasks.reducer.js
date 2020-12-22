@@ -8,24 +8,23 @@ const initialState = {
 
 export const tasksReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TasksActions.loadAllTasksSuccess().type:
-    case TasksActions.loadTodayTasksSuccess:
-    case TasksActions.loadWeekTasksSuccess:
-    case TasksActions.loadCompletedTasksSuccess:
-    case TasksActions.loadTrashTasksSuccess:
-      debugger;
+    case TasksActions.LOAD_ALL_SUCCESS:
+    case TasksActions.LOAD_TODAY_SUCCESS:
+    case TasksActions.LOAD_WEEK_SUCCESS:
+    case TasksActions.LOAD_COMPLETED_SUCCESS:
+    case TasksActions.LOAD_TRASH_SUCCESS:
       return addTasks(state, action.payload);
-    case TasksActions.createTaskSuccess:
+    case TasksActions.CREATE_SUCCESS:
       return addTask(state, action.payload);
-    case TasksActions.updateTaskSuccess:
+    case TasksActions.UPDATE_SUCCESS:
       return updateTask(state, action.payload);
     case TasksActions.deleteTaskSuccess:
       return removeTask(state, action.payload);
-    case TasksActions.loadTaskSuccess:
+    case TasksActions.LOAD_SELECTED_SUCCESS:
       return selectTask(state, action.payload);
-    case TasksActions.clearSelectedTask:
+    case TasksActions.CLEAR_SELECTED:
       return unselectTask(state);
-    case TasksActions.patchTaskSuccess:
+    case TasksActions.PATCH_SUCCESS:
       return updateTask(state, action.payload);
     default:
       return state;

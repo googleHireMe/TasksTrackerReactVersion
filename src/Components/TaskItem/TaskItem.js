@@ -19,9 +19,9 @@ export class TasksItem extends Component {
 
   render() {
     return (
-      <div className="task-item" onClick={this.props.select(this.props.task)}>
+      <div className="task-item" onClick={() => this.props.selectTask(this.props.task._id)}>
         <div className="left-part">
-          <div class="checkbox">
+          <div className="checkbox">
             <Checkbox
               color="primary"
               value={this.props.task.status}
@@ -33,7 +33,7 @@ export class TasksItem extends Component {
           </div>
         </div>
         <div className="right-part">
-          <div class="dueDate">
+          <div className="dueDate">
             {this.props.task?.dueDate}
           </div>
           <div className="actions">

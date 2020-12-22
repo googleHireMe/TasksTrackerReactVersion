@@ -6,7 +6,7 @@ const initialState = {
 
 export const prioritiesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case PrioritiesActions.loadPrioritiesSuccess:
+    case PrioritiesActions.LOAD_SUCCESS:
       return addPriorities(state, action.payload);
     default:
       return state;
