@@ -4,8 +4,18 @@ import { Switch, Route } from 'react-router-dom';
 import { TasksCreator } from '../../Components/TaskCreator/TaskCreator';
 import { TasksEditor } from '../../Components/TaskEditor/TaskEditor';
 import { TasksList } from '../../Components/TasksList/TasksList';
+import { connect } from 'react-redux';
+import * as TasksActions from '../../store/actions/tasks.actions';
 
-export class TasksScreen extends Component {
+class TasksScreen extends Component {
+
+  componentDidMount(){
+    this.props.loadAllTasks();
+  }
+
+  componentDidUpdate(obj){
+    debugger;
+  }
 
   render() {
     return (
@@ -15,10 +25,10 @@ export class TasksScreen extends Component {
           <Row>
             <Col xs={7}>
               <div>
-                <TasksCreator></TasksCreator>
+                <TasksCreator createTask={(task) => this.props.onCreateTask(task)} ></TasksCreator>
               </div>
               <div>
-                <TasksList></TasksList>
+                <TasksList tasks={this.props.tasks}></TasksList>
               </div>
             </Col>
             <Col xs={5}>
@@ -32,3 +42,17 @@ export class TasksScreen extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  tasks: state.tasks.tasks,
+  areTasksLoaded: state.tasks.areTasksLoaded,
+  selectedTask: state.tasks.selectedTask,
+  priorities: state.priorities.priorities
+});
+
+const mapDispatchToProps = dispatch => ({
+  onCreateTask: task => dispatch(TasksActions.createTask(task)),
+  loadAllTasks: () => dispatch(TasksActions.loadAllTasks())
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(TasksScreen);
