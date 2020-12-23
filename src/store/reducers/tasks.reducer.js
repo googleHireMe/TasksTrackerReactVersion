@@ -18,7 +18,7 @@ export const tasksReducer = (state = initialState, action) => {
       return addTask(state, action.payload);
     case TasksActions.UPDATE_SUCCESS:
       return updateTask(state, action.payload);
-    case TasksActions.deleteTaskSuccess:
+    case TasksActions.DELETE_SUCCESS:
       return removeTask(state, action.payload);
     case TasksActions.LOAD_SELECTED_SUCCESS:
       return selectTask(state, action.payload);
@@ -32,7 +32,11 @@ export const tasksReducer = (state = initialState, action) => {
 };
 
 const addTasks = (state, tasks) => ({ ...state, tasks });
-const addTask = (state, task) => ({ ...state, tasks: state.tasks.concat([task]) });
+const addTask = (state, task) => {
+  const tasks = [...state.tasks];
+  tasks.unshift(task);
+  return { ...state, tasks };
+};
 const updateTask = (state, task) => ({ ...state, tasks: state.tasks.map(t => t._id === task._id ? task : t) });
 const removeTask = (state, taskId) => ({ ...state, tasks: state.tasks.filter(t => t._id !== taskId) });
 const selectTask = (state, task) => ({ ...state, selectedTask: task });

@@ -13,6 +13,9 @@ class TasksScreen extends Component {
     this.props.loadAllTasks();
   }
 
+  componentDidUpdate(nextProps){
+  }
+
   render() {
     return (
       <>
@@ -27,6 +30,8 @@ class TasksScreen extends Component {
                 <TasksList
                   tasks={this.props.tasks}
                   selectTask={taskId => this.props.onSelectTask(taskId)}
+                  deleteTask={taskId => this.props.onDeleteTask(taskId)}
+                  updateTaskStatus={(taskId, patchDocument) => this.props.onStatusUpdate(taskId,patchDocument)}
                 />
               </div>
             </Col>
@@ -52,7 +57,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({  
   loadAllTasks: () => dispatch(TasksActions.loadAllTasks()),
   onCreateTask: task => dispatch(TasksActions.createTask(task)),
-  onSelectTask: taskId => dispatch(TasksActions.loadTask(taskId))
+  onSelectTask: taskId => dispatch(TasksActions.loadTask(taskId)),
+  onDeleteTask: taskId => dispatch(TasksActions.deleteTask(taskId)),
+  onStatusUpdate: (taskId, patchDocument) => dispatch(TasksActions.patchTask(taskId, patchDocument))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(TasksScreen);

@@ -5,6 +5,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
+import classes from './TaskItem.module.css'
+import Moment from 'react-moment';
 
 export class TasksItem extends Component {
 
@@ -14,45 +16,52 @@ export class TasksItem extends Component {
 
   openPopover = (event) => this.setState({ popoverAncherEl: event.currentTarget });
 
-  handleClose = () => this.setState({ popoverAncherEl: null });
+  handleClose = () => {
+    this.setState({ popoverAncherEl: null });
+    this.props.deleteTask(this.props.task._id);
+  };
 
+  updateStatus = (taskId, event) => {
+    const test = this.props.task.status;
+    const patchDocument = { status: event.target.checked };
+    this.props.updateTaskStatus(taskId, patchDocument)
+  }
 
   render() {
     return (
-      <div className="task-item" onClick={() => this.props.selectTask(this.props.task._id)}>
-        <div className="left-part">
-          <div className="checkbox">
+      <div className={classes.TaskItem} onClick={() => this.props.selectTask(this.props.task._id)}>
+        <div className={classes.LeftPart}>
+          <div className={classes.Checkbox}>
             <Checkbox
               color="primary"
-              value={this.props.task.status}
-              onChange={event => this.props.updateStatus(this.props.task, event)}
+              checked={this.props.task.status}
+              onChange={event => this.updateStatus(this.props.task._id, event)}
             />
           </div>
-          <div className="title">
+          <div className={classes.Title}>
             {this.props.task?.title}
           </div>
         </div>
-        <div className="right-part">
-          <div className="dueDate">
-            {this.props.task?.dueDate}
+        <div className={classes.RightPart}>
+          <div className={classes.DueDate}>
+            {this.props.task?.dueDate ? <Moment format="MM/DD/YYYY">{this.props.task?.dueDate}</Moment> : ''}
           </div>
-          <div className="actions">
+          <div className={classes.Actions}>
             <IconButton
-              aria-controls="long-menu"
-              aria-haspopup="true"
               onClick={event => this.openPopover(event)}
             >
               <MoreVertIcon />
             </IconButton>
             <Menu
-              id="menu"
               anchorEl={this.state.popoverAncherEl}
-              keepMounted
-              open={event => this.openPopover(event)}
+              getContentAnchorEl={null}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+              transformOrigin={{ vertical: "top", horizontal: "right" }}
+              open={!!this.state.popoverAncherEl}
               onClose={() => this.handleClose()}
             >
               <MenuItem onClick={() => this.handleClose()}>
-                <DeleteIcon />
+                <DeleteIcon /> Delete
               </MenuItem>
             </Menu>
           </div>
