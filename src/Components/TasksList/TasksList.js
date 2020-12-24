@@ -3,10 +3,6 @@ import { TasksItem } from '../TaskItem/TaskItem';
 
 export class TasksList extends Component {
 
-  componentDidUpdate(nextProps){
-    console.log('new tasks:', nextProps.tasks);
-  }
-
   render = () => <>
     {this.props.tasks?.map(task =>
       <TasksItem

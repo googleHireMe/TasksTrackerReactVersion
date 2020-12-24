@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Switch, Route } from 'react-router-dom';
 import { TasksCreator } from '../../Components/TaskCreator/TaskCreator';
-import { TasksEditor } from '../../Components/TaskEditor/TaskEditor';
+import TasksEditor from '../../Components/TaskEditor/TaskEditor';
 import { TasksList } from '../../Components/TasksList/TasksList';
 import { connect } from 'react-redux';
 import * as TasksActions from '../../store/actions/tasks.actions';
+import { push } from 'connected-react-router';
 
 class TasksScreen extends Component {
 
@@ -13,13 +14,8 @@ class TasksScreen extends Component {
     this.props.loadAllTasks();
   }
 
-  componentDidUpdate(nextProps){
-  }
-
   render() {
     return (
-      <>
-        TasksScreen works!
         <Container>
           <Row>
             <Col xs={7}>
@@ -37,12 +33,11 @@ class TasksScreen extends Component {
             </Col>
             <Col xs={5}>
               <Switch>
-                <Route exact path={`${this.props.location.pathname}/:id`} component={TasksEditor}></Route>
+              <Route exact path={'/tasks/:id'} component={(props) => <TasksEditor key={props.match.params.id} {...props} />}></Route>
               </Switch>
             </Col>
           </Row>
         </Container>
-      </>
     );
   }
 }
@@ -50,14 +45,13 @@ class TasksScreen extends Component {
 const mapStateToProps = state => ({
   tasks: state.tasks.tasks,
   areTasksLoaded: state.tasks.areTasksLoaded,
-  selectedTask: state.tasks.selectedTask,
-  priorities: state.priorities.priorities
+  selectedTask: state.tasks.selectedTask
 });
 
 const mapDispatchToProps = dispatch => ({  
   loadAllTasks: () => dispatch(TasksActions.loadAllTasks()),
   onCreateTask: task => dispatch(TasksActions.createTask(task)),
-  onSelectTask: taskId => dispatch(TasksActions.loadTask(taskId)),
+  onSelectTask: taskId => dispatch(push(`/tasks/${taskId}`)),
   onDeleteTask: taskId => dispatch(TasksActions.deleteTask(taskId)),
   onStatusUpdate: (taskId, patchDocument) => dispatch(TasksActions.patchTask(taskId, patchDocument))
 });

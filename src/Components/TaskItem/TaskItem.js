@@ -22,7 +22,6 @@ export class TasksItem extends Component {
   };
 
   updateStatus = (taskId, event) => {
-    const test = this.props.task.status;
     const patchDocument = { status: event.target.checked };
     this.props.updateTaskStatus(taskId, patchDocument)
   }
