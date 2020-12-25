@@ -17,8 +17,7 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 class TasksEditor extends Component {
 
   state = {
-    isTaskLoadedInitially: false,
-    selectedDate: null
+    isTaskLoadedInitially: false
   }
 
   componentDidMount() {
@@ -35,8 +34,9 @@ class TasksEditor extends Component {
     }
   }
 
-  handleDateChange = (event) => {
-    console.log('date changed:', event);
+  updateDate = (taskId, event) => {
+    const patchDocument = { dueDate: event };
+    this.props.updateTaskStatus(taskId, patchDocument)
   }
 
   updateStatus = (taskId, event) => {
@@ -79,8 +79,8 @@ class TasksEditor extends Component {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                value={this.state.selectedDate}
-                onChange={(event) => this.handleDateChange(this.props.task._id,event)}
+                value={this.props.task?.dueDate}
+                onChange={(event) => this.updateDate(this.props.task._id,event)}
               />
             </MuiPickersUtilsProvider>
           </Col>
