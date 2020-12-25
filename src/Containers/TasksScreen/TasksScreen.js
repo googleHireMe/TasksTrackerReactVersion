@@ -33,7 +33,7 @@ class TasksScreen extends Component {
             </Col>
             <Col xs={5}>
               <Switch>
-              <Route exact path={'/tasks/:id'} component={(props) => <TasksEditor key={props.match.params.id} {...props} />}></Route>
+                <Route exact path={'/tasks/:id'} component={TasksEditor}></Route>
               </Switch>
             </Col>
           </Row>

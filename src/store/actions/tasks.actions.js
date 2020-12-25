@@ -13,7 +13,7 @@ export const CLEAR_SELECTED = '[Task] CLEAR_SELECTED';
 export const PATCH_SUCCESS = '[Task] PATCH_SUCCESS';
 
 const taskUrl = '/task';
-const tasksUrl = 'tasks';
+const tasksUrl = '/tasks';
 
 
 export const loadAllTasks = () =>

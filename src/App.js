@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Component } from 'react';
 import TasksScreen from './Containers/TasksScreen/TasksScreen';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -35,12 +35,10 @@ export class App extends Component {
     return (
       <Provider store={store}>
         <ConnectedRouter history={history}>
-          <BrowserRouter>
             <Switch>
               <Route path="/tasks" component={TasksScreen}></Route>
               <Route exact path="/" component={TasksScreen}></Route>
             </Switch>
-          </BrowserRouter>
         </ConnectedRouter>
       </Provider>
     );

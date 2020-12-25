@@ -1,10 +1,11 @@
 import { axios } from '../../axios';
 
 export const LOAD_SUCCESS = '[Priorities] LOAD_SUCCESS';
+export const prioritiesUrl = '/priorities';
 
 export const loadPriorities = () =>
-  dispatch => axios.get()
-    .then(priorities => dispatch(loadPrioritiesSuccess(priorities)))
+  dispatch => axios.get(`${prioritiesUrl}`)
+    .then(response => dispatch(loadPrioritiesSuccess(response.data)))
     .catch(error => console.error(error));
 
 

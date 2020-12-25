@@ -37,7 +37,7 @@ const addTask = (state, task) => {
   tasks.unshift(task);
   return { ...state, tasks };
 };
-const updateTask = (state, task) => ({ ...state, tasks: state.tasks.map(t => t._id === task._id ? task : t) });
+const updateTask = (state, task) => ({ ...state, selectedTask: task, tasks: state.tasks.map(t => t._id === task._id ? task : t) });
 const removeTask = (state, taskId) => ({ ...state, tasks: state.tasks.filter(t => t._id !== taskId) });
 const selectTask = (state, task) => ({ ...state, selectedTask: task });
 const unselectTask = (state) => ({ ...state, selectedTask: null });
