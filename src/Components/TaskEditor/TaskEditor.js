@@ -62,7 +62,7 @@ class TasksEditor extends Component {
   render() {
     return (
       <form>
-        <Row className="row sticky-header">
+        <Row className={classes.StickyHeader}>
           <Col xs={1} className={classes.CheckboxContainer}>
             <Checkbox
               color="primary"

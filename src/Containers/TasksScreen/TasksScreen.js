@@ -16,7 +16,6 @@ class TasksScreen extends Component {
 
   render() {
     return (
-        <Container>
           <Row>
             <Col xs={7}>
               <div>
@@ -37,7 +36,6 @@ class TasksScreen extends Component {
               </Switch>
             </Col>
           </Row>
-        </Container>
     );
   }
 }
